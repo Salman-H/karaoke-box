@@ -9,4 +9,12 @@ public class SongLibrary {
     public SongLibrary() {
         songs = new ArrayList<Song>();
     }
+
+    public void addSong(Song song) {
+        songs.add(song);
+    }
+
+    public int getSongCount() {
+        return songs.size();
+    }
 }
