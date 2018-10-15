@@ -32,4 +32,27 @@ public class KaraokeMachine {
         return userChoice.trim().toLowerCase();
     }
 
+    public void run() {
+        String choice = "";
+        do {
+            try {
+                choice = getUserInput();
+                switch (choice) {
+                    case "add":
+                        // TODO: Add song
+                        break;
+                    case "quit":
+                        System.out.println("Thanks for singing!");
+                        break;
+                    default:
+                        System.out.printf("Choice not recognized: %s. Try again. %n%n%n", choice);
+                }
+            }
+            catch(IOException ioe) {
+                System.out.println("Problem with input!");
+                ioe.printStackTrace();
+            }
+        }
+        while (!choice.equalsIgnoreCase("quit"));
+    }
 }
