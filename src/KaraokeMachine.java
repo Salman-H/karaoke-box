@@ -1,3 +1,4 @@
+import model.Song;
 import model.SongLibrary;
 
 import java.io.BufferedReader;
@@ -39,7 +40,9 @@ public class KaraokeMachine {
                 choice = getUserInput();
                 switch (choice) {
                     case "add":
-                        // TODO: Add song
+                        Song song = promptNewSong();
+                        songLibrary.addSong(song);
+                        System.out.printf("%s added! %n%n", song);
                         break;
                     case "quit":
                         System.out.println("Thanks for singing!");
@@ -47,12 +50,21 @@ public class KaraokeMachine {
                     default:
                         System.out.printf("Choice not recognized: %s. Try again. %n%n%n", choice);
                 }
-            }
-            catch(IOException ioe) {
+            } catch(IOException ioe) {
                 System.out.println("Problem with input!");
                 ioe.printStackTrace();
             }
         }
         while (!choice.equalsIgnoreCase("quit"));
+    }
+
+    private Song promptNewSong() throws IOException {
+        System.out.print("Enter the artist's name: ");
+        String artist = inputReader.readLine();
+        System.out.print("Enter the title: ");
+        String title = inputReader.readLine();
+        System.out.print("Enter the video URL: ");
+        String videoURL = inputReader.readLine();
+        return new Song(title, artist, videoURL);
     }
 }
