@@ -25,9 +25,9 @@ public class KaraokeMachine {
         System.out.printf("There are %d songs available. Here are your options: %n",
                             songLibrary.getSongCount());
         for (Map.Entry<String,String> option: menu.entrySet()) {
-            System.out.printf("%s - % s", option.getKey(), option.getValue());
+            System.out.printf("%s - %s %n", option.getKey(), option.getValue());
         }
-        System.out.print("What would you like to do?");
+        System.out.print("What would you like to do?  ");
         String userChoice = inputReader.readLine();
 
         return userChoice.trim().toLowerCase();
