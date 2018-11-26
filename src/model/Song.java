@@ -3,10 +3,10 @@ package model;
 public class Song {
 
     private String title;
-    private String artist;
+    private Artist artist;
     private String videoUrl;
 
-    public Song(String title, String artist, String videoUrl) {
+    public Song(String title, Artist artist, String videoUrl) {
         this.title = title;
         this.artist = artist;
         this.videoUrl = videoUrl;
@@ -16,7 +16,7 @@ public class Song {
         return title;
     }
 
-    public String getArtist() {
+    public Artist getArtist() {
         return artist;
     }
 
@@ -26,6 +26,6 @@ public class Song {
 
     @Override
     public String toString() {
-        return String.format("Song: %s by %s", title, artist);
+        return String.format("Song: %s by %s", title, artist.getName());
     }
 }
