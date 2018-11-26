@@ -1,21 +1,29 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SongLibrary {
    private List<Song> songs;
    private List<Artist> artists;
+   private Map<String, Artist> artistMap;
 
    public SongLibrary() {
       songs = new ArrayList<>();
       artists = new ArrayList<>();
+      artistMap = new HashMap<>();
    }
 
    public void addSong(Song song) {
-      songs.add(song);
-      song.getArtist().addSong(song);
-      artists.add(song.getArtist());
+      if (!songs.contains(song)) {
+         songs.add(song);
+         Artist artist = song.getArtist();
+         if (!artist.getSongs().contains(song)) artist.addSong(song);
+         if (!artists.contains(artist)) artists.add(artist);
+      }
+      else System.out.printf("%n%s is already in library! %n%n", song);
    }
 
    public int getSongCount() {
@@ -24,6 +32,15 @@ public class SongLibrary {
 
    public List<Artist> getArtists() {
       return artists;
+   }
+
+   /* Returns specified artist from library or creates a new one if artist
+    * with that name doesn't exist */
+   public Artist getArtist(String name) {
+      if (!artistMap.containsKey(name.toLowerCase())) {
+         artistMap.put(name.toLowerCase(), new Artist(name));
+      }
+      return artistMap.get(name.toLowerCase());
    }
 
    public List<Song> getSongsForArtist(Artist artist) {
