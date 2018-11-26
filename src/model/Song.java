@@ -24,7 +24,25 @@ public class Song {
    }
 
    @Override
+   public boolean equals(Object obj) {
+      if (this == obj) {
+         return true;
+      }
+      if (obj == null) {
+         return false;
+      }
+      if (obj instanceof Song) {
+         // songs same only if both their titles and artist names are same
+         Song otherSong = (Song) obj;
+         return otherSong.getTitle().equalsIgnoreCase(this.title) &&
+                otherSong.getArtist().getName().equalsIgnoreCase(this.artist.getName());
+      }
+      return false;
+   }
+
+   @Override
    public String toString() {
-      return String.format("Song: %s by %s", title, artist.getName());
+      return String.format("Song: %s by %s", title.toUpperCase(),
+              artist.getName().toUpperCase());
    }
 }
