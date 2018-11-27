@@ -3,17 +3,19 @@ import model.Song;
 import model.SongLibrary;
 
 import java.io.BufferedReader;
-import java.util.HashMap;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.Queue;
+import java.util.ArrayDeque;
 
 
 public class KaraokeMachine {
    private SongLibrary songLibrary;
    private BufferedReader inputReader;
    private Map<String,String> menu;
+   private Queue<Song> songQueue;
 
    public KaraokeMachine(SongLibrary songLibrary) {
       this.songLibrary = songLibrary;
@@ -22,6 +24,11 @@ public class KaraokeMachine {
       menu.put("add   ", "Add new song to library");
       menu.put("choose", "Choose a song to queue");
       menu.put("quit  ", "Exit program");
+      /*
+       * prohibits null elements and faster than LinkedList
+       * https://stackoverflow.com/questions/6129805/what-is-the-fastest-java-collection-with-the-basic-functionality-of-a-queue
+       */
+      songQueue = new ArrayDeque<>();
    }
 
    public void run() {
@@ -37,7 +44,7 @@ public class KaraokeMachine {
                   break;
                case "choose":
                   song = promptSongSelection();
-                  // TODO: Queue song to be sung
+                  songQueue.add(song);
                   System.out.printf("%nYou chose: %s %n", song);
                case "quit":
                   System.out.println("Thanks for singing!");
@@ -56,9 +63,11 @@ public class KaraokeMachine {
    }
 
    private String getUserInput() throws IOException {
-      System.out.printf("%nThere are %d songs available. " +
-                        "Here are your options: %n%n",
-                        songLibrary.getSongCount());
+      System.out.printf("%nThere are %d songs available in the song library " +
+                        "and %d songs currently queued." +
+                        " Here are your options: %n%n",
+                        songLibrary.getSongCount(),
+                        songQueue.size());
 
       for (Map.Entry<String,String> option: menu.entrySet()) {
          System.out.printf("%s - %s %n", option.getKey(), option.getValue());
