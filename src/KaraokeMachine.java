@@ -44,9 +44,13 @@ public class KaraokeMachine {
                   songLibrary.addSong(song);
                   break;
                case "choose":
-                  song = promptSongSelection();
-                  songQueue.add(song);
-                  System.out.printf("%nYou chose: %s %n", song);
+                  if (!songLibrary.getSongs().isEmpty()) {
+                     song = promptSongSelection();
+                     songQueue.add(song);
+                     System.out.printf("\nYou chose: %s %n", song);
+                  } else
+                     System.out.println("\nNo songs added yet.");
+                  break;
                case "play":
                   playNextSong();
                   break;
