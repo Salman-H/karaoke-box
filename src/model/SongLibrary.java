@@ -16,6 +16,10 @@ public class SongLibrary {
       artistMap = new HashMap<>();
    }
 
+   public List<Song> getSongs() {
+      return songs;
+   }
+
    public void addSong(Song song) {
       if (!songs.contains(song)) {
          songs.add(song);

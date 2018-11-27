@@ -19,8 +19,9 @@ public class KaraokeMachine {
       this.songLibrary = songLibrary;
       inputReader = new BufferedReader(new InputStreamReader(System.in));
       menu = new HashMap<String,String>();
-      menu.put("add", "Add new song to library");
-      menu.put("quit", "Exit program");
+      menu.put("add   ", "Add new song to library");
+      menu.put("choose", "Choose a song to queue");
+      menu.put("quit  ", "Exit program");
    }
 
    public void run() {
@@ -28,11 +29,16 @@ public class KaraokeMachine {
       do {
          try {
             choice = getUserInput();
+            Song song = null;
             switch (choice) {
                case "add":
-                  Song song = promptNewSong();
+                  song = promptNewSong();
                   songLibrary.addSong(song);
                   break;
+               case "choose":
+                  song = promptSongSelection();
+                  // TODO: Queue song to be sung
+                  System.out.printf("%nYou chose: %s %n", song);
                case "quit":
                   System.out.println("Thanks for singing!");
                   break;
@@ -74,6 +80,21 @@ public class KaraokeMachine {
       return new Song(title.toUpperCase(),
                       songLibrary.getArtist(artist),
                       videoURL);
+   }
+
+   private Song promptSongSelection() throws IOException {
+      songLibrary.printArtists();
+      System.out.print("Select artist number: ");
+      String artistNumberAsString = inputReader.readLine().trim();
+      int artistNumber = Integer.parseInt(artistNumberAsString);
+
+      Artist artist = songLibrary.getArtists().get(artistNumber-1);
+      artist.printInfo();
+      System.out.print("Select song number: ");
+      String songNumberAsString = inputReader.readLine().trim();
+      int songNumber = Integer.parseInt(songNumberAsString);
+
+      return songLibrary.getSongs().get(songNumber-1);
    }
 
 }
