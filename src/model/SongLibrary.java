@@ -22,6 +22,7 @@ public class SongLibrary {
          Artist artist = song.getArtist();
          if (!artist.getSongs().contains(song)) artist.addSong(song);
          if (!artists.contains(artist)) artists.add(artist);
+         System.out.printf("%n%s added! %n%n", song);
       }
       else System.out.printf("%n%s is already in library! %n%n", song);
    }

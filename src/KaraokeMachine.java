@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.util.HashMap;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,7 +32,6 @@ public class KaraokeMachine {
                case "add":
                   Song song = promptNewSong();
                   songLibrary.addSong(song);
-                  System.out.printf("%s added! %n%n", song);
                   break;
                case "quit":
                   System.out.println("Thanks for singing!");
@@ -50,24 +50,25 @@ public class KaraokeMachine {
    }
 
    private String getUserInput() throws IOException {
-      System.out.printf("There are %d songs available. " +
-                        "Here are your options: %n",
+      System.out.printf("%nThere are %d songs available. " +
+                        "Here are your options: %n%n",
                         songLibrary.getSongCount());
+
       for (Map.Entry<String,String> option: menu.entrySet()) {
          System.out.printf("%s - %s %n", option.getKey(), option.getValue());
       }
-      System.out.print("What would you like to do?  ");
+      System.out.print("\nWhat would you like to do?  ");
       String userChoice = inputReader.readLine();
       return userChoice.trim().toLowerCase();
    }
 
    private Song promptNewSong() throws IOException {
-      System.out.print("Enter the artist's name: ");
-      String artist = inputReader.readLine();
+      System.out.print("\nEnter the artist's name: ");
+      String artist = inputReader.readLine().trim().toLowerCase();
       System.out.print("Enter the title: ");
-      String title = inputReader.readLine();
+      String title = inputReader.readLine().trim().toLowerCase();
       System.out.print("Enter the video URL: ");
-      String videoURL = inputReader.readLine();
+      String videoURL = inputReader.readLine().trim().toLowerCase();
       return new Song(title, new Artist(artist), videoURL);
    }
 
