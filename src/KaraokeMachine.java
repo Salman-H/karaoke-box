@@ -23,6 +23,7 @@ public class KaraokeMachine {
       menu = new HashMap<String,String>();
       menu.put("add   ", "Add new song to library");
       menu.put("choose", "Choose a song to queue");
+      menu.put("play  ", "Play next song in the queue");
       menu.put("quit  ", "Exit program");
       /*
        * prohibits null elements and faster than LinkedList
@@ -46,6 +47,9 @@ public class KaraokeMachine {
                   song = promptSongSelection();
                   songQueue.add(song);
                   System.out.printf("%nYou chose: %s %n", song);
+               case "play":
+                  playNextSong();
+                  break;
                case "quit":
                   System.out.println("Thanks for singing!");
                   break;
@@ -104,6 +108,20 @@ public class KaraokeMachine {
       int songNumber = Integer.parseInt(songNumberAsString);
 
       return songLibrary.getSongs().get(songNumber-1);
+   }
+
+   private void playNextSong() {
+      Song nextSong = songQueue.poll();
+      if (nextSong != null) {
+         System.out.printf("%n%n Open %s to hear %s by %s %n%n",
+                           nextSong.getVideoUrl(),
+                           nextSong.getTitle(),
+                           nextSong.getArtist().getName());
+      }
+      else {
+         System.out.println("No songs in the queue." +
+                            " Choose songs from the menu to queue.");
+      }
    }
 
 }
