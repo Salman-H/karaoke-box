@@ -69,7 +69,11 @@ public class KaraokeMachine {
       String title = inputReader.readLine().trim().toLowerCase();
       System.out.print("Enter the video URL: ");
       String videoURL = inputReader.readLine().trim().toLowerCase();
-      return new Song(title, new Artist(artist), videoURL);
+      /* Do not create a new Artist instance if artist of
+       * this song already exists in the song library */
+      return new Song(title.toUpperCase(),
+                      songLibrary.getArtist(artist),
+                      videoURL);
    }
 
 }
