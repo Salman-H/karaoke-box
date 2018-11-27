@@ -43,6 +43,21 @@ public class SongLibrary {
       return artistMap.get(name.toLowerCase());
    }
 
+   public void printArtists() {
+      if (!artists.isEmpty()) {
+         System.out.print("\nAvailable artists: \n\n");
+         int count = 1;
+         for (Artist artist: artists) {
+            System.out.printf("%d)  %s %n",
+                    count, artist.getName().toUpperCase());
+            count++;
+         }
+      }
+      else {
+         System.out.println("None added.");
+      }
+   }
+
    public List<Song> getSongsForArtist(Artist artist) {
       return artist.getSongs();
    }
